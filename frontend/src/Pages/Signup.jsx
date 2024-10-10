@@ -63,7 +63,7 @@ const Signup = () => {
   // Get all the current username present
   const getUsernames = async () => {
     return await axios
-      .get('http://localhost:5173/api/usernames')
+      .get(`${backendURL}/api/usernames`)
       .then((data) => data.data.usernames)
       .catch((err) => {
         console.log(err);
@@ -88,7 +88,7 @@ const Signup = () => {
         toast.error("Username already exist please try another.");
       } else {
         axios
-          .post('http://localhost:5173/api/signup', form)
+          .post(`${backendURL}/api/signup`, form)
           .then((res) => {
             if (res.data.success) {
               toast.success("User Created Successfully");
