@@ -16,27 +16,27 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb" }));
 
 // CORS configuration
-const allowedOrigins = [
-    "https://delightful-daifuku-a9f6ea.netlify.app",
-    /https:\/\/deploy-preview-\d+--delightful-daifuku-a9f6ea\.netlify\.app/,
-];
+// const allowedOrigins = [
+//     "https://delightful-daifuku-a9f6ea.netlify.app",
+//     /https:\/\/deploy-preview-\d+--delightful-daifuku-a9f6ea\.netlify\.app/,
+// ];
 
-app.use(
-    cors({
-        origin: function (origin, callback) {
-            if (
-                !origin ||
-                allowedOrigins.some((o) =>
-                    typeof o === "string" ? o === origin : o.test(origin)
-                )
-            ) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
-    })
-);
+// app.use(
+//     cors({
+//         origin: function (origin, callback) {
+//             if (
+//                 !origin ||
+//                 allowedOrigins.some((o) =>
+//                     typeof o === "string" ? o === origin : o.test(origin)
+//                 )
+//             ) {
+//                 callback(null, true);
+//             } else {
+//                 callback(new Error("Not allowed by CORS"));
+//             }
+//         },
+//     })
+// );
 
 app.use("/api", router);
 

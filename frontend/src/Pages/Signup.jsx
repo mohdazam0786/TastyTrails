@@ -13,6 +13,7 @@ const Signup = () => {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [passwordFocused,setPasswordFocused]=useState(false);
   const [show, setShow] = useState(false); 
+  const [showCPassword, setShowCPassword] = useState(false); 
   const [form, setForm] = useState({
     // Signup Form Data
     firstName: "",
@@ -62,7 +63,7 @@ const Signup = () => {
   // Get all the current username present
   const getUsernames = async () => {
     return await axios
-      .get(`${backendURL}/api/usernames`)
+      .get('http://localhost:5173/api/usernames')
       .then((data) => data.data.usernames)
       .catch((err) => {
         console.log(err);
@@ -87,7 +88,7 @@ const Signup = () => {
         toast.error("Username already exist please try another.");
       } else {
         axios
-          .post(`${backendURL}/api/signup`, form)
+          .post('http://localhost:5173/api/signup', form)
           .then((res) => {
             if (res.data.success) {
               toast.success("User Created Successfully");
@@ -261,7 +262,7 @@ const Signup = () => {
                 </div>
 
                 {/* Confirm Password Field */}
-                <div>
+                <div  className="relative">
                   <label
                     htmlFor="cpassword"
                     className="block text-sm font-medium text-gray-900 dark:text-white"
@@ -269,15 +270,20 @@ const Signup = () => {
                     Confirm Password
                   </label>
                   <input
-                    type="password"
-                    name="cpassword"
-                    id="cpassword"
-                    placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition-colors duration-200 ease-in-out"
-                    required={true}
-                    value={form.cpassword}
-                    onChange={handleChange}
-                  />
+                      type={showCPassword ? "text" : "password"}
+                      name="cpassword"
+                      id="cpassword"
+                      placeholder="••••••••"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      required={true}
+                      value={form.cpassword}
+                      onChange={handleChange}
+                    />
+                  <FontAwesomeIcon
+                      icon={showCPassword ? faEye : faEyeSlash}
+                      onClick={() => setShowCPassword(!showCPassword)}
+                      className="absolute top-5 right-0 m-3 cursor-pointer"
+                    />
                   {error.cpassword && (
                     <p className="error text-red-500 text-sm mt-0 mb-2">
                       {error.cpasswordError}
