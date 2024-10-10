@@ -28,7 +28,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:5173/api/login', form)
+      .post(`${backendURL}/api/login`, form)
       .then((res) => {
         if (res.data.success) {
           toast.success("Login Successful");
